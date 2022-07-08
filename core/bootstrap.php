@@ -3,4 +3,4 @@ define ('ROOT_URL', $_SERVER["REQUEST_SCHEME"] . '://' . $_SERVER['SERVER_NAME']
 
 require 'core/helpers.php';
 require 'core/Router.php';
-//require 'app/Models/formModel.php';
+require 'app/Models/formModel.php';

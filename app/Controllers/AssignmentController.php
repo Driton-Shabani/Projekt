@@ -1,10 +1,13 @@
 <?php
     class AssignmentController{
 
-        public function assignments(){
-
-            $select = new Model;
-            $getall = $select->selectAll();
+        public function index()
+        {
+            
+            $tasks = new Model("","","","",0);
+            $tasks = $tasks->selectAll();
+            
+            
             require 'app/Views/Assignments.view.php';
         }
 

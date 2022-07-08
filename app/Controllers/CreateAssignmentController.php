@@ -3,52 +3,73 @@
     {
         public function index()
         {
+            $tools = new Model("","","","", 0);
+            $tools = $tools->selectTools();
+            
             require 'app/Views/CreateAssignment.view.php';
         }
 
         public function create()
         {
-            if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-                $insert = new Model($_POST['Name'], $_POST['Email'], $_POST['Werkzeugname'], $_POST['Dringlichkeit']);
-                $insertinto = $insert->create();
+            $WerkzeugID = $_POST['Werkzeug'];
 
-                header('Location: ')
-            }
+            $insert = new Model($_POST['Name'], $_POST['Email'], $_POST['Telefon'], $_POST['Dringlichkeit'], $WerkzeugID);
+            $insert->create();
+            header('Location: assignments');
+
         }
         
+
         public function validate()
-        {            
-            $name = $_POST['Name'] ?? '';
-            $email = $_POST['Email'] ?? '';
-            $phone = $_POST['Telefon'] ?? '';
-            
-            
+        {     
 
             if($_SERVER['REQUEST_METHOD']==='POST') 
             {
-                if ($email === '') 
+                $Name = $_POST['Name'];
+                $Email  = $_POST['Email'];
+                $Tel = $_POST['Telefon'];
+                $i = 0;
+                
+                if($Name === '')
                 {
-                    echo "<script type='text/javascript'>alert('Bitte geben sie eine Email ein');</script>";                    
+                    echo "<script type='text/javascript'>alert('Name darf nicht leer sein');</script>";
+                    $i++;
+                }
+                elseif ($Email === '') 
+                {
+                    echo "<script type='text/javascript'>alert('Bitte geben sie eine Email ein');</script>";
+                    $i++;           
                 } 
-                elseif (strpos($email, '@') === false) 
+                elseif (strpos($Email, '@') === false) 
                 {
                     echo "<script type='text/javascript'>alert('Diese Emailadresse ist ungültig.');</script>";
-                }  
-                elseif (!preg_match('/^[\+ 0-9]+$/', $phone)) 
+                    $i++;
+                    
+                } 
+                elseif ($Tel !== '') 
                 {
-                    echo "<script type='text/javascript'>alert('Diese Telefonnummer ist ungültig.');</script>";
-                }                                     
-            }
+                    if (!preg_match('/^[\+ 0-9]+$/', $Tel)) 
+                    {
+                        echo "<script type='text/javascript'>alert('Diese Telefonnummer ist ungültig.');</script>";
+                        $i++;
+                    }
+                                       
+                } 
+                
+                if($i == 0)
+                {
+                    header('Location: create-model');
+                }
 
-            else 
-            {
-                header('Location: /createassignment');
-            }
-    
-        } 
+
+
                 
 
+                
+            }
+        }
+        
     }
     
 

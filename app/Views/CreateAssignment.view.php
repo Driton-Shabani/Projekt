@@ -9,7 +9,7 @@
     <title>Auftrag erfassen</title>
 </head>
 <body>
-    <form action = "create-model " method="POST">
+    <form action = "create-model" method="POST">
         <fieldset>
             <legend>persönliche Angaben</legend>
 
@@ -25,9 +25,16 @@
 
         <fieldset>
             <legend>Angaben des Werkzeuges</legend>
+            <label for="Werkzeug" class="text">Werkzeug</label>
+            <select name="Werkzeug" id="Werkzeug" class ="input_dropdown" required>
+                <?php 
+                    foreach($tools as $tool)
+                    {
+                        echo "<option value='".$tool["WerkzeugID"]."'>".$tool["Werkzeugname"]."</option>";
+                    }
+                ?>
 
-             <label for="Werkzeugname" class="text">Werkzeugname</label>
-             <input type="text" name = "Werkzeugname" class="input" required>
+             </select>
 
              <label for="Dringlichkeit" class="text">Dringlichkeit</label>
              
